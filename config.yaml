@@ -1,0 +1,56 @@
+# ==========================================================
+# Speech Emotion Recognition - Central Configuration
+# ==========================================================
+
+audio:
+  sample_rate: 22050
+  duration_sec: 3.5          # clips are padded/truncated to this length
+  trim_silence: true
+
+features:
+  n_mfcc: 40
+  n_mels: 128
+  n_fft: 2048
+  hop_length: 512
+  use_delta: true            # include delta + delta-delta MFCCs
+  use_chroma: true
+  use_zcr_rms: true
+  max_pad_len: 174           # time-frames per clip (~3.5s at hop_length=512, sr=22050)
+
+dataset:
+  name: ravdess               # ravdess | tess | emodb | synthetic
+  data_dir: data/RAVDESS
+  processed_dir: data/processed
+  test_size: 0.15
+  val_size: 0.15
+  random_seed: 42
+
+augmentation:
+  enabled: false
+  noise_prob: 0.3
+  pitch_shift_prob: 0.3
+  time_stretch_prob: 0.3
+
+model:
+  type: cnn_lstm              # cnn | lstm | cnn_lstm
+  cnn_channels: [32, 64, 128]
+  lstm_hidden_size: 128
+  lstm_layers: 2
+  bidirectional: true
+  dropout: 0.4
+  num_classes: 8
+
+training:
+  batch_size: 32
+  epochs: 50
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  early_stopping_patience: 10
+  lr_scheduler_patience: 5
+  device: auto                # auto | cpu | cuda
+
+paths:
+  output_dir: outputs
+  model_save_path: outputs/best_model.pt
+  scaler_save_path: outputs/scaler.pkl
+  label_map_path: outputs/label_map.json

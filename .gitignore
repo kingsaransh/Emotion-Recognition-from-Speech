@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+venv/
+.venv/
+
+# Data & model artifacts (large/binary, regenerate via pipeline)
+data/RAVDESS/*
+data/TESS/*
+data/EMODB/*
+!data/RAVDESS/.gitkeep
+!data/TESS/.gitkeep
+!data/EMODB/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+outputs/*
+!outputs/.gitkeep
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
